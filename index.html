@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="nl">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kriol di Família</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --deep:#0c3a57; --deep-2:#0a2e45; --sea:#1f6f8b;
+    --sand:#f6efe2; --sand-2:#efe5d2; --coral:#e76f51; --coral-d:#c8583c;
+    --star:#f2c14e; --ink:#10242f; --ink-soft:#4a5d66; --cream-text:#f4eddf;
+    --good:#2f9e7e; --bad:#d9614a; --line:rgba(16,36,47,.12);
+    --radius:18px; --shadow:0 10px 30px rgba(6,24,36,.18);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:"Plus Jakarta Sans",system-ui,sans-serif;color:var(--cream-text);
+    background:radial-gradient(120% 80% at 50% -10%, #15506f 0%, var(--deep) 45%, var(--deep-2) 100%);
+    min-height:100dvh;-webkit-font-smoothing:antialiased;
+  }
+  #app{max-width:460px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;padding:0 18px 28px}
+  .view{flex:1;display:flex;flex-direction:column;animation:fade .35s ease both}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  header{padding:26px 4px 14px}
+  .brand{display:flex;align-items:baseline;gap:9px}
+  .brand h1{font-family:"Fraunces",serif;font-weight:600;font-size:30px;margin:0;color:var(--cream-text)}
+  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--coral);transform:translateY(-2px)}
+  .tagline{margin:3px 0 0;color:#bcd2dd;font-size:13px;font-weight:500}
+  .streak{margin:16px 0 6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:var(--radius);padding:14px 16px}
+  .streak .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .streak .label{font-size:12.5px;color:#bcd2dd;font-weight:600;text-transform:uppercase;letter-spacing:.6px}
+  .streak .count{font-family:"Fraunces",serif;font-weight:700;font-size:20px;color:var(--star)}
+  .stars{display:flex;gap:5px;flex-wrap:wrap}
+  .star{width:22px;height:22px;flex:0 0 auto}
+  .star path{fill:rgba(255,255,255,.13);transition:fill .4s ease,transform .4s ease}
+  .star.on path{fill:var(--star)}
+  .star.pop path{animation:pop .5s ease}
+  @keyframes pop{0%{transform:scale(.4)}55%{transform:scale(1.25)}100%{transform:scale(1)}}
+  .btn{appearance:none;border:0;cursor:pointer;font-family:inherit;font-weight:700;font-size:16px;border-radius:14px;padding:15px 18px;width:100%;color:#fff;background:var(--coral);box-shadow:0 8px 20px rgba(231,111,81,.32);transition:transform .12s ease,background .2s}
+  .btn:active{transform:translateY(1px) scale(.995)}
+  .btn.ghost{background:rgba(255,255,255,.08);box-shadow:none;border:1px solid rgba(255,255,255,.14)}
+  .eyebrow{display:flex;align-items:center;gap:10px;margin:22px 4px 12px;color:#9fbecb;font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase}
+  .eyebrow::after{content:"";height:1px;flex:1;background:rgba(255,255,255,.12)}
+  .themes{display:flex;flex-direction:column;gap:11px}
+  .theme{text-align:left;border:0;cursor:pointer;font-family:inherit;width:100%;background:var(--sand);color:var(--ink);border-radius:var(--radius);padding:15px 16px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow);transition:transform .12s ease}
+  .theme:active{transform:translateY(1px)}
+  .theme .ic{width:42px;height:42px;border-radius:12px;flex:0 0 auto;display:grid;place-items:center;font-size:21px;background:var(--sand-2)}
+  .theme .body{flex:1;min-width:0}
+  .theme .t{font-weight:700;font-size:16px;margin:0 0 3px;font-family:"Fraunces",serif}
+  .theme .meta{font-size:12.5px;color:var(--ink-soft);font-weight:500}
+  .theme .bar{height:6px;border-radius:6px;background:rgba(16,36,47,.1);margin-top:8px;overflow:hidden}
+  .theme .bar span{display:block;height:100%;background:var(--sea);border-radius:6px;transition:width .5s ease}
+  .theme .chev{color:var(--ink-soft);font-size:20px}
+  .sess-top{display:flex;align-items:center;gap:12px;padding:22px 2px 8px}
+  .sess-top .x{appearance:none;border:0;background:rgba(255,255,255,.08);color:#fff;width:38px;height:38px;border-radius:11px;font-size:18px;cursor:pointer;flex:0 0 auto}
+  .progress{flex:1;height:8px;border-radius:8px;background:rgba(255,255,255,.12);overflow:hidden}
+  .progress span{display:block;height:100%;background:var(--star);border-radius:8px;transition:width .35s ease}
+  .qcount{font-size:13px;color:#bcd2dd;font-weight:600;min-width:38px;text-align:right}
+  .prompt{margin:18px 0 6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:var(--radius);padding:26px 20px;text-align:center}
+  .prompt .dir{font-size:11.5px;letter-spacing:1px;text-transform:uppercase;color:#9fbecb;font-weight:700;margin-bottom:12px}
+  .prompt .q{font-family:"Fraunces",serif;font-weight:600;font-size:30px;line-height:1.15;color:#fff}
+  .prompt .play-q{margin-top:14px;appearance:none;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;border-radius:11px;padding:8px 14px;font-size:14px;font-weight:600;cursor:pointer;display:inline-flex;gap:7px;align-items:center}
+  .options{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+  .opt{text-align:left;cursor:pointer;font-family:inherit;font-size:16.5px;font-weight:600;background:var(--sand);color:var(--ink);border:2px solid transparent;border-radius:14px;padding:15px 16px;transition:transform .1s,border-color .2s,background .2s}
+  .opt:active{transform:translateY(1px)}
+  .opt.correct{border-color:var(--good);background:#e7f4ef}
+  .opt.wrong{border-color:var(--bad);background:#fbe9e5}
+  .opt.dim{opacity:.55}
+  .reveal{margin-top:16px;background:var(--sand);color:var(--ink);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);animation:fade .3s ease both}
+  .reveal .head{display:flex;align-items:center;gap:10px}
+  .reveal .kr{font-family:"Fraunces",serif;font-weight:700;font-size:24px;color:var(--ink)}
+  .reveal .nl{font-size:15px;color:var(--ink-soft);margin-top:2px;font-weight:600}
+  .spk{margin-left:auto;width:44px;height:44px;border-radius:12px;border:0;background:var(--deep);color:#fff;display:grid;place-items:center;font-size:19px;cursor:pointer;flex:0 0 auto}
+  .spk.off{background:transparent;border:1px dashed rgba(16,36,47,.3);color:var(--ink-soft);cursor:not-allowed}
+  .spk.playing{animation:pulse .8s ease infinite}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .chip{font-size:12.5px;font-weight:700;border-radius:999px;padding:7px 12px;border:1px solid var(--line);background:#fff;color:var(--ink);cursor:pointer}
+  .chip.pt.show{background:var(--deep);color:#fff;border-color:var(--deep)}
+  .note{margin-top:12px;font-size:13.5px;line-height:1.45;color:var(--ink);background:#fff;border-radius:12px;padding:11px 13px;border:1px solid var(--line)}
+  .note b{color:var(--coral-d)}
+  .altline{margin-top:10px;display:flex;align-items:center;gap:9px;font-size:14.5px;color:var(--ink);font-weight:600}
+  .altline .lbl{font-size:11.5px;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.5px}
+  .altline .mini{width:34px;height:34px;border-radius:9px;border:0;background:var(--sea);color:#fff;display:grid;place-items:center;cursor:pointer;font-size:15px;flex:0 0 auto}
+  .ref{margin-top:10px;font-size:12.5px;color:var(--ink-soft)}
+  .ref b{color:var(--ink)}
+  .feedline{text-align:center;font-family:"Fraunces",serif;font-weight:700;font-size:18px;margin:14px 2px 0}
+  .feedline.ok{color:var(--good)}
+  .feedline.no{color:var(--bad)}
+  .done{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px;padding:30px 10px}
+  .done .big{font-family:"Fraunces",serif;font-weight:700;font-size:40px;color:#fff}
+  .done .sub{color:#bcd2dd;font-size:15px;font-weight:500;margin-bottom:6px}
+  .done .score{font-family:"Fraunces",serif;font-size:18px;color:var(--star);margin:4px 0 18px}
+  .done .stars{justify-content:center;margin:8px 0 22px}
+  .done .actions{width:100%;display:flex;flex-direction:column;gap:10px;max-width:320px}
+  .center-msg{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:14px;padding:40px 18px;color:#cfe0e8}
+  .center-msg code{background:rgba(255,255,255,.1);padding:2px 7px;border-radius:6px;font-size:13px}
+  .footnote{margin-top:18px;text-align:center;color:#7fa0ae;font-size:11.5px;line-height:1.5}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+<div id="app">
+  <div class="center-msg"><div style="font-family:Fraunces,serif;font-size:26px;color:#fff">Kriol di Família</div><div>Bezig met laden…</div></div>
+</div>
+
+<script>
+/* ============================================================
+   Kriol di Família — gehoste versie (GitHub Pages)
+   Content (kriol_seed_v1.json) staat los van deze code.
+   Voortgang via localStorage. Audio uit /audio.
+   ============================================================ */
+const TEMA_IC = { saudacao:"👋", mi_bo:"🫱", kaza_komida:"🍲", familia:"❤️", rotina:"🌅" };
+const SESSION_LEN = 8;
+const app = document.getElementById("app");
+
+let LESSEN = [], ITEMS = [];
+
+/* ---------- storage (localStorage, met veilige fallback) ---------- */
+let mem = {};
+const Store = {
+  get(k){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):null; }catch(e){ return (k in mem)?mem[k]:null; } },
+  set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){ mem[k]=v; } }
+};
+const todayStr = () => new Date().toISOString().slice(0,10);
+let state = { boxes:{}, streak:{count:0,last:null} };
+function loadState(){
+  const b=Store.get("kriol_boxes"); if(b) state.boxes=b;
+  const s=Store.get("kriol_streak"); if(s) state.streak=s;
+}
+function boxOf(id){ return state.boxes[id]||1; }
+
+/* ---------- helpers ---------- */
+const shuffle = a => a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(p=>p[1]);
+function starSVG(on,pop){ return `<svg class="star ${on?'on':''} ${pop?'pop':''}" viewBox="0 0 24 24"><path d="M12 2.2l2.95 5.98 6.6.96-4.78 4.66 1.13 6.57L12 17.97l-5.9 3.1 1.13-6.57L2.45 9.14l6.6-.96z"/></svg>`; }
+function starRow(count,popAll){ let s=""; const n=Math.min(count,10); for(let i=0;i<10;i++) s+=starSVG(i<n,popAll&&i<n); return s; }
+function themeProgress(tema){ const items=ITEMS.filter(i=>i.tema===tema); const learned=items.filter(i=>boxOf(i.id)>=3).length; return {learned,total:items.length,pct:items.length?Math.round(100*learned/items.length):0}; }
+
+let currentAudio=null;
+function playAudio(src, btn){
+  if(!src) return;
+  try{
+    if(currentAudio){ currentAudio.pause(); }
+    currentAudio = new Audio(src);
+    if(btn){ btn.classList.add("playing"); currentAudio.onended=()=>btn.classList.remove("playing"); currentAudio.onerror=()=>btn.classList.remove("playing"); }
+    currentAudio.play().catch(()=>{ if(btn) btn.classList.remove("playing"); });
+  }catch(e){}
+}
+
+/* ---------- session ---------- */
+function buildSession(temaFilter){
+  let pool = ITEMS.filter(i=>!temaFilter||i.tema===temaFilter);
+  pool = pool.map(i=>({i,k:boxOf(i.id)+Math.random()*0.9})).sort((a,b)=>a.k-b.k).map(p=>p.i);
+  return pool.slice(0, Math.min(SESSION_LEN, pool.length));
+}
+function makeCard(item){
+  const dir = Math.random()<0.5 ? "kr2nl" : "nl2kriol";
+  const field = dir==="kr2nl" ? "nl" : "kriol";
+  const promptText = dir==="kr2nl" ? item.kriol : item.nl;
+  const answerText = dir==="kr2nl" ? item.nl : item.kriol;
+  let others = ITEMS.filter(x=>x.id!==item.id && x[field]!==answerText);
+  let same = others.filter(x=>x.tema===item.tema);
+  let pick = shuffle(same).slice(0,3);
+  if(pick.length<3) pick = pick.concat(shuffle(others.filter(x=>!pick.includes(x))).slice(0,3-pick.length));
+  const opts = shuffle([answerText, ...pick.map(x=>x[field])]);
+  return {item,dir,promptText,answerText,opts};
+}
+let sess=null;
+function startSession(temaFilter){
+  const items=buildSession(temaFilter); if(!items.length) return;
+  sess={cards:items.map(makeCard), idx:0, correct:0, answered:false};
+  renderSession();
+}
+
+/* ---------- views ---------- */
+function renderHome(){
+  const total=ITEMS.length, learned=ITEMS.filter(i=>boxOf(i.id)>=3).length, c=state.streak.count;
+  app.innerHTML = `
+  <div class="view">
+    <header>
+      <div class="brand"><h1>Kriol di Família</h1><span class="dot"></span></div>
+      <p class="tagline">Kriol d Sonsent · pa nos família</p>
+    </header>
+    <div class="streak">
+      <div class="top"><span class="label">Streak · dia di fila</span><span class="count">${c} ${c===1?"dia":"dias"}</span></div>
+      <div class="stars">${starRow(c)}</div>
+    </div>
+    <button class="btn" id="start" style="margin-top:14px">Kumeça lison di oji</button>
+    <div class="eyebrow">Temas</div>
+    <div class="themes">
+      ${LESSEN.map(l=>{const p=themeProgress(l.tema);return `<button class="theme" data-tema="${l.tema}">
+        <span class="ic">${TEMA_IC[l.tema]||"📘"}</span>
+        <span class="body"><p class="t">${l.titel_nl}</p><p class="meta">${p.learned}/${p.total} geleerd</p>
+        <span class="bar"><span style="width:${p.pct}%"></span></span></span>
+        <span class="chev">›</span></button>`;}).join("")}
+    </div>
+    <p class="footnote">${learned}/${total} woorden onder de knie · voortgang bewaart in deze browser.</p>
+  </div>`;
+  document.getElementById("start").onclick=()=>startSession(null);
+  app.querySelectorAll(".theme").forEach(b=>b.onclick=()=>startSession(b.dataset.tema));
+}
+
+function renderSession(){
+  const card=sess.cards[sess.idx], n=sess.cards.length, pct=Math.round(100*sess.idx/n);
+  const dirLabel = card.dir==="kr2nl" ? "Kriol → Nederlands" : "Nederlands → Kriol";
+  const showQAudio = card.dir==="kr2nl" && card.item.audio;
+  app.innerHTML = `
+  <div class="view">
+    <div class="sess-top">
+      <button class="x" id="quit" aria-label="Stoppen">✕</button>
+      <div class="progress"><span style="width:${pct}%"></span></div>
+      <div class="qcount">${sess.idx+1}/${n}</div>
+    </div>
+    <div class="prompt">
+      <div class="dir">${dirLabel}</div>
+      <div class="q">${card.promptText}</div>
+      ${showQAudio?`<button class="play-q" id="playq">🔊 Luister</button>`:""}
+    </div>
+    <div class="options" id="opts">
+      ${card.opts.map(o=>`<button class="opt" data-v="${encodeURIComponent(o)}">${o}</button>`).join("")}
+    </div>
+    <div id="after"></div>
+  </div>`;
+  document.getElementById("quit").onclick=()=>{ sess=null; renderHome(); };
+  if(showQAudio){ const pq=document.getElementById("playq"); pq.onclick=()=>playAudio(card.item.audio,pq); }
+  app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>answer(b,card));
+}
+
+function answer(btn,card){
+  if(sess.answered) return; sess.answered=true;
+  const chosen=decodeURIComponent(btn.dataset.v), ok=chosen===card.answerText, it=card.item;
+  state.boxes[it.id]= ok?Math.min(5,boxOf(it.id)+1):1; Store.set("kriol_boxes",state.boxes);
+  if(ok) sess.correct++;
+  app.querySelectorAll(".opt").forEach(b=>{
+    const v=decodeURIComponent(b.dataset.v);
+    if(v===card.answerText) b.classList.add("correct");
+    else if(b===btn) b.classList.add("wrong");
+    else b.classList.add("dim");
+    b.style.pointerEvents="none";
+  });
+  const hasAudio=!!it.audio;
+  const altHTML=(it.alt&&it.alt.length)?it.alt.map((a,k)=>{
+    const aud=(it.alt_audio&&it.alt_audio[k])?it.alt_audio[k]:null;
+    return `<div class="altline"><span class="lbl">ook</span><span>${a}</span>${aud?`<button class="mini" data-aud="${aud}">🔊</button>`:""}</div>`;
+  }).join(""):"";
+  const refHTML = it.kriol_sv ? `<div class="ref">São Vicente: <b>${it.kriol_sv}</b></div>` : "";
+  const after=document.getElementById("after");
+  after.innerHTML = `
+    <div class="feedline ${ok?'ok':'no'}">${ok?'Dret! 🎉':'Ka faz mal — ’t komt nog.'}</div>
+    <div class="reveal">
+      <div class="head">
+        <div><div class="kr">${it.kriol}</div><div class="nl">${it.nl}</div></div>
+        <button class="spk ${hasAudio?'':'off'}" id="spk" ${hasAudio?'':'disabled title="Audio komt later"'} aria-label="Luister">🔊</button>
+      </div>
+      ${altHTML}
+      ${refHTML}
+      <div class="chips"><button class="chip pt" id="ptchip">Toon Portugees</button></div>
+      <div id="ptline"></div>
+      ${it.pron_hint?`<div class="note">${it.pron_hint.replace('DELTA:','<b>São Nicolau →</b>')}</div>`:""}
+    </div>
+    <button class="btn" id="next" style="margin-top:16px">${sess.idx+1<sess.cards.length?'Volgende':'Klaar'}</button>`;
+  if(hasAudio){
+    const spk=document.getElementById("spk");
+    spk.onclick=()=>playAudio(it.audio,spk);
+    playAudio(it.audio,spk); // speel meteen af bij onthullen
+  }
+  after.querySelectorAll(".mini").forEach(b=>b.onclick=()=>playAudio(b.dataset.aud,null));
+  const ptchip=document.getElementById("ptchip");
+  ptchip.onclick=()=>{
+    const line=document.getElementById("ptline");
+    if(ptchip.classList.toggle("show")){ ptchip.textContent="Verberg Portugees"; line.innerHTML=`<div class="note">🇵🇹 <b style="color:var(--ink)">${it.pt||"—"}</b></div>`; }
+    else { ptchip.textContent="Toon Portugees"; line.innerHTML=""; }
+  };
+  document.getElementById("next").onclick=nextCard;
+}
+function nextCard(){ if(sess.idx+1<sess.cards.length){ sess.idx++; sess.answered=false; renderSession(); } else finishSession(); }
+function finishSession(){
+  const t=todayStr(), last=state.streak.last;
+  if(last!==t){ const y=new Date(Date.now()-864e5).toISOString().slice(0,10);
+    state.streak.count=(last===y)?state.streak.count+1:1; state.streak.last=t; Store.set("kriol_streak",state.streak); }
+  renderDone();
+}
+function renderDone(){
+  const c=state.streak.count;
+  app.innerHTML=`<div class="view"><div class="done">
+    <div class="big">Dret!</div>
+    <div class="sub">Lison kompletu · ${sess.correct}/${sess.cards.length} dret</div>
+    <div class="stars">${starRow(c,true)}</div>
+    <div class="score">Streak: ${c} ${c===1?"dia":"dias"}</div>
+    <div class="actions"><button class="btn" id="again">Inda un lison</button><button class="btn ghost" id="home">Volta pa kasa</button></div>
+  </div></div>`;
+  document.getElementById("again").onclick=()=>startSession(null);
+  document.getElementById("home").onclick=()=>{ sess=null; renderHome(); };
+}
+
+function showLoadError(){
+  app.innerHTML=`<div class="center-msg">
+    <div style="font-family:Fraunces,serif;font-size:26px;color:#fff">Kriol di Família</div>
+    <div>De inhoud (<code>kriol_seed_v1.json</code>) kon niet geladen worden.</div>
+    <div style="font-size:13.5px;line-height:1.6;max-width:340px">Dit gebeurt als je het bestand rechtstreeks opent. Draai het via een webserver — bv. in de map: <code>python3 -m http.server</code> en open <code>localhost:8000</code> — of bekijk het live op GitHub Pages.</div>
+  </div>`;
+}
+
+/* ---------- boot ---------- */
+(async function(){
+  loadState();
+  try{
+    const res = await fetch("kriol_seed_v1.json", {cache:"no-store"});
+    if(!res.ok) throw new Error("http "+res.status);
+    const data = await res.json();
+    LESSEN = data.lessen || [];
+    ITEMS = data.items || [];
+    if(!ITEMS.length) throw new Error("geen items");
+    renderHome();
+  }catch(e){ showLoadError(); }
+})();
+</script>
+</html>
