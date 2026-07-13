@@ -49,4 +49,9 @@ Streak en herhaling worden per toestel in de browser bewaard (`localStorage`). E
 
 ## Status audio
 
-Les 1–3 ingesproken (k0001–k0028). Les 4–5 (k0029–k0040) volgen; tot dan toont de app daar netjes "audio komt later".
+Alle 11 lessen zijn volledig ingesproken (102 items, 105 mp3-bestanden — inclusief de varianten `k0006b`, `k0019_alt`, `k0045_alt`, `k0065_alt`). Er zijn geen kaarten meer zonder audio.
+
+## Inhoud v2
+
+- **11 lessen / 102 items.** Les 1–5 (v1): begroeten, ik & jij, thuis & eten, familie, dagritme. Les 6–11 (v2): vraagwoorden, winkel & restaurant, familie & small talk, getallen 0–10, tijd, gevoelens.
+- De v2-vormen komen uit de conceptlijst (familie-uitspraak). Het `pt`-veld is voor de nieuwe items nog leeg (`null`) — de Portugees-toggle toont daar voorlopig "—".
