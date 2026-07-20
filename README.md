@@ -49,9 +49,10 @@ Streak en herhaling worden per toestel in de browser bewaard (`localStorage`). E
 
 ## Status audio
 
-Alle 11 lessen zijn volledig ingesproken (102 items, 105 mp3-bestanden — inclusief de varianten `k0006b`, `k0019_alt`, `k0045_alt`, `k0065_alt`). Er zijn geen kaarten meer zonder audio.
+16 lessen, 165 items, 168 mp3-bestanden. Alle kaarten hebben audio.
 
-## Inhoud v2
+## Inhoud v3
 
-- **11 lessen / 102 items.** Les 1–5 (v1): begroeten, ik & jij, thuis & eten, familie, dagritme. Les 6–11 (v2): vraagwoorden, winkel & restaurant, familie & small talk, getallen 0–10, tijd, gevoelens.
+- **16 lessen / 165 items.** Les 1–5 (v1): begroeten, ik & jij, thuis & eten, familie, dagritme. Les 6–11 (v2): vraagwoorden, winkel & restaurant, familie & small talk, getallen 0–10, tijd, gevoelens. Les 12–16 (v3): lichaamsdelen, fruit & groente, vlees & vis, aan tafel & bestek, voertuigen. Les 3 kreeg er ook rijst, thee, melk en koekje bij.
+- Alle Kriol-vormen van v2/v3 zijn door de native spreker (São Nicolau) ingesproken en gecorrigeerd. Portugees is voor alle items ingevuld.
 - De v2-vormen komen uit de conceptlijst (familie-uitspraak). Het `pt`-veld is voor de nieuwe items nog leeg (`null`) — de Portugees-toggle toont daar voorlopig "—".
